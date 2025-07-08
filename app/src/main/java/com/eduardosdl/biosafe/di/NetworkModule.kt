@@ -1,5 +1,6 @@
 package com.eduardosdl.biosafe.di
 
+import com.eduardosdl.biosafe.BuildConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -39,8 +40,8 @@ val networkModule = module {
 
             defaultRequest {
                 url {
-                    protocol = URLProtocol.HTTPS
-                    host = "http://172.20.224.1:1880"
+                    protocol = URLProtocol.HTTP
+                    host = BuildConfig.API_URL
                     contentType(ContentType.Application.Json)
                 }
             }
