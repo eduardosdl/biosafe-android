@@ -1,4 +1,4 @@
-package com.eduardosdl.biosafe.theme
+package com.eduardosdl.biosafe.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

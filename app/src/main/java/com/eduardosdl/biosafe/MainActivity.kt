@@ -5,8 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Surface
-import com.eduardosdl.biosafe.presentation.home.UsersScreen
-import com.eduardosdl.biosafe.theme.BiosafeTheme
+import com.eduardosdl.biosafe.presentation.navigation.Navigation
+import com.eduardosdl.biosafe.presentation.theme.BiosafeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BiosafeTheme {
                 Surface {
-                    UsersScreen()
+                    Navigation()
                 }
             }
         }

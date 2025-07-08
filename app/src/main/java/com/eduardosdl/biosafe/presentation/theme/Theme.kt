@@ -1,4 +1,4 @@
-package com.eduardosdl.biosafe.theme
+package com.eduardosdl.biosafe.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
