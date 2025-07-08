@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">biosafe</string>
+    <string name="app_name">BioSafe</string>
+
+    <!-- bottom app bar labels -->
+    <string name="label_home_screen_app_bar">Home</string>
+    <string name="label_users_screen_app_bar">Usuários</string>
 </resources>
