@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -11,8 +12,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.eduardosdl.biosafe.navigation.BottomBarUI
 import com.eduardosdl.biosafe.navigation.MainNavHost
+import com.eduardosdl.biosafe.navigation.bottom.BottomBarUI
+import com.eduardosdl.biosafe.navigation.top.LocalTopBarConfig
+import com.eduardosdl.biosafe.navigation.top.TopBarConfig
+import com.eduardosdl.biosafe.navigation.top.TopBarUI
 import com.eduardosdl.biosafe.presentation.splash.SplashScreen
 
 @Composable
@@ -23,30 +27,40 @@ fun AppScreen() {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    if (isSplashFinished) {
-        Scaffold(
-            modifier = Modifier
-                .fillMaxSize(),
-            bottomBar = {
-                BottomBarUI(
-                    currentDestination = currentDestination,
-                    onItemClick = {
-                        navController.navigate(it.route) {
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
+    val topBarConfig = remember { mutableStateOf(TopBarConfig()) }
+
+    CompositionLocalProvider(LocalTopBarConfig provides topBarConfig) {
+        if (isSplashFinished) {
+            Scaffold(
+                modifier = Modifier
+                    .fillMaxSize(),
+                topBar = {
+                    TopBarUI(
+                        navController = navController,
+                        topBarConfig = topBarConfig.value,
+                    )
+                },
+                bottomBar = {
+                    BottomBarUI(
+                        currentDestination = currentDestination,
+                        onItemClick = {
+                            navController.navigate(it.route) {
+                                popUpTo(navController.graph.startDestinationId) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
                             }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    })
+                        })
+                }
+            ) { innerPadding ->
+                MainNavHost(
+                    modifier = Modifier.padding(innerPadding),
+                    navHostController = navController,
+                )
             }
-        ) { innerPadding ->
-            MainNavHost(
-                modifier = Modifier.padding(innerPadding),
-                navHostController = navController,
-            )
+        } else {
+            SplashScreen(onSplashFinished = { isSplashFinished = true })
         }
-    } else {
-        SplashScreen(onSplashFinished = { isSplashFinished = true })
     }
 }

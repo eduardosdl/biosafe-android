@@ -1,4 +1,4 @@
-package com.eduardosdl.biosafe.navigation
+package com.eduardosdl.biosafe.navigation.bottom
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import com.eduardosdl.biosafe.R
+import com.eduardosdl.biosafe.navigation.NavRoutes
 
 sealed class BottomAppBarItems(
     val route: NavRoutes,
