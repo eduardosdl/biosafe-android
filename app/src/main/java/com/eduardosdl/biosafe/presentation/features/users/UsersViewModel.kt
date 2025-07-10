@@ -1,4 +1,4 @@
-package com.eduardosdl.biosafe.presentation.users
+package com.eduardosdl.biosafe.presentation.features.users
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

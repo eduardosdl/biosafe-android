@@ -1,4 +1,4 @@
-package com.eduardosdl.biosafe.presentation.users
+package com.eduardosdl.biosafe.presentation.features.users
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,9 +25,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.eduardosdl.biosafe.R
 import com.eduardosdl.biosafe.domain.model.User
-import com.eduardosdl.biosafe.navigation.top.LocalTopBarConfig
-import com.eduardosdl.biosafe.navigation.top.TopBarConfig
-import com.eduardosdl.biosafe.presentation.home.HomeViewModel
+import com.eduardosdl.biosafe.presentation.components.topbar.LocalTopBarConfig
+import com.eduardosdl.biosafe.presentation.components.topbar.TopBarConfig
+import com.eduardosdl.biosafe.presentation.features.home.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -48,9 +48,9 @@ fun UsersScreen(viewModel: HomeViewModel = koinViewModel()) {
     }
 
     Column(
-    modifier = Modifier
-    .fillMaxSize()
-    .padding(16.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
     ) {
         Text("Usuários Cadastrados", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(16.dp))

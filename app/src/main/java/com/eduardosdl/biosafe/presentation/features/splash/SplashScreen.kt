@@ -1,4 +1,4 @@
-package com.eduardosdl.biosafe.presentation.splash
+package com.eduardosdl.biosafe.presentation.features.splash
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

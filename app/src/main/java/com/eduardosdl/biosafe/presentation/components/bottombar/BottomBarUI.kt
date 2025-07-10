@@ -1,4 +1,4 @@
-package com.eduardosdl.biosafe.navigation.bottom
+package com.eduardosdl.biosafe.presentation.components.bottombar
 
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
@@ -7,30 +7,29 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.compose.ui.res.stringResource
+import com.eduardosdl.biosafe.navigation.tabs.TabsItemsList
 
 @Composable
-fun BottomBarUI(currentDestination: NavDestination?, onItemClick: (BottomAppBarItems) -> Unit) {
+fun BottomBarUI(
+    tabs: List<TabsItemsList>,
+    currentRoute: String?,
+    onItemClick: (TabsItemsList) -> Unit,
+) {
     BottomAppBar(
         actions = {
-            BottomAppBarItems.items.forEach { item ->
-                val isSelect = currentDestination?.hierarchy?.any {
-                    it.route == item.route::class.qualifiedName
-                } == true
-
+            tabs.forEach { item ->
+                val isSelected = currentRoute == item.route
                 NavigationBarItem(
-                    selected = isSelect,
-                    onClick = {
-                        onItemClick(item)
-                    },
+                    selected = isSelected,
+                    onClick = { onItemClick(item) },
                     icon = {
-                        Icon(imageVector = item.icon, contentDescription = item.getLabel())
+                        Icon(imageVector = item.icon, contentDescription = stringResource(item.labelRes))
                     },
                     label = {
                         Text(
-                            item.getLabel(),
-                            color = if (isSelect)
+                            text = stringResource(item.labelRes),
+                            color = if (isSelected)
                                 MaterialTheme.colorScheme.primary
                             else MaterialTheme.colorScheme.onSurface
                         )
@@ -39,7 +38,6 @@ fun BottomBarUI(currentDestination: NavDestination?, onItemClick: (BottomAppBarI
                         selectedIconColor = MaterialTheme.colorScheme.surface,
                         indicatorColor = MaterialTheme.colorScheme.primary
                     )
-
                 )
             }
         }

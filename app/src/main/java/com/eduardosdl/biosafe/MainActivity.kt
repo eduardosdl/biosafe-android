@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Surface
-import com.eduardosdl.biosafe.presentation.app.AppScreen
+import com.eduardosdl.biosafe.navigation.screens.ScreensNavHost
 import com.eduardosdl.biosafe.presentation.theme.BiosafeTheme
 
 class MainActivity : ComponentActivity() {
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BiosafeTheme {
                 Surface {
-                    AppScreen()
+                    ScreensNavHost()
                 }
             }
         }

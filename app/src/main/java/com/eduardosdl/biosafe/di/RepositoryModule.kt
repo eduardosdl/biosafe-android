@@ -5,5 +5,5 @@ import com.eduardosdl.biosafe.domain.repository.UserRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<UserRepository> { UserRepositoryImpl(get()) }
+    single<UserRepository> { UserRepositoryImpl(get(), get()) }
 }

@@ -1,4 +1,4 @@
-package com.eduardosdl.biosafe.presentation.home
+package com.eduardosdl.biosafe.presentation.features.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.eduardosdl.biosafe.R
-import com.eduardosdl.biosafe.navigation.top.LocalTopBarConfig
-import com.eduardosdl.biosafe.navigation.top.TopBarConfig
+import com.eduardosdl.biosafe.presentation.components.topbar.LocalTopBarConfig
+import com.eduardosdl.biosafe.presentation.components.topbar.TopBarConfig
 
 @Composable
 fun HomeScreen() {
