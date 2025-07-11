@@ -1,29 +1,35 @@
 package com.eduardosdl.biosafe.presentation.features.users
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eduardosdl.biosafe.domain.enum.ResultStatus
 import com.eduardosdl.biosafe.domain.model.User
-import com.eduardosdl.biosafe.domain.repository.UserRepository
+import com.eduardosdl.biosafe.domain.usecase.UserUseCase
+import com.eduardosdl.biosafe.presentation.features.util.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class UsersViewModel(private val userRepository: UserRepository) : ViewModel() {
-    private val _users = MutableStateFlow<List<User>>(emptyList())
-    val users = _users
+class UsersViewModel(private val userUseCase: UserUseCase) : ViewModel() {
+    private val _usersList = MutableStateFlow<UiState<List<User>>>(UiState.Idle)
+    val usersList = _usersList
 
     init {
         fetchUsers()
     }
 
-    private fun fetchUsers() {
+    fun fetchUsers() {
         viewModelScope.launch {
-            Log.d("UserRepositoryImpl", "fetchUsers: called")
-            try {
-                _users.value = userRepository.getUsers()
-            } catch (e: Exception) {
-                Log.d("UserRepositoryImpl", "fetchUsers: error $e")
-                _users.value = emptyList()
+            _usersList.value = UiState.Loading
+
+            val response = userUseCase.getAll()
+
+            when (response.resultStatus) {
+                ResultStatus.SUCCESS -> {
+                    val userUi = UserUiMapper.fromDomainList(response.results ?: emptyList())
+                    _usersList.value = UiState.Success(userUi)
+                }
+
+                else -> {}
             }
         }
     }

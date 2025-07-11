@@ -21,8 +21,6 @@ fun NavGraphBuilder.screensNavGraph(navController: NavHostController) {
     }
 
     composable<ScreensList.TabContainer> {
-        TabContainer(
-            navController = navController
-        )
+        TabContainer()
     }
 }
