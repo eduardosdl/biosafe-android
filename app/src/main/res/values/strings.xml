@@ -4,4 +4,9 @@
     <!-- bottom app bar labels -->
     <string name="label_home_screen_app_bar">Home</string>
     <string name="label_users_screen_app_bar">Usuários</string>
+
+    <!-- users screen -->
+    <string name="label_without_last_access">Nenhum acesso registrado</string>
+    <string name="label_empty_users">Sem usuários cadastrados</string>
+    <string name="label_create_new_user_btn">Cadastrar novo usuário</string>
 </resources>

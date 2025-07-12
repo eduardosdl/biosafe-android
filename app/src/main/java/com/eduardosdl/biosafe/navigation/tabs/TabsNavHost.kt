@@ -4,17 +4,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.eduardosdl.biosafe.presentation.features.tabcontainer.TabScaffoldConfig
 
 @Composable
 fun TabsNavHost(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    setScaffoldConfig: (TabScaffoldConfig) -> Unit
 ) {
     NavHost(
         modifier = modifier,
         navController = navHostController,
         startDestination = TabsItemsList.Home.route
     ) {
-        tabsContainerNavGraph(navHostController)
+        tabsContainerNavGraph(navHostController, setScaffoldConfig)
     }
 }

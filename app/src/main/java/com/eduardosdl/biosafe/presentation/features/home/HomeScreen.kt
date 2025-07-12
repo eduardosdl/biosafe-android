@@ -12,33 +12,27 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.eduardosdl.biosafe.R
-import com.eduardosdl.biosafe.presentation.components.topbar.LocalTopBarConfig
-import com.eduardosdl.biosafe.presentation.components.topbar.TopBarConfig
+import com.eduardosdl.biosafe.presentation.features.tabcontainer.TabScaffoldConfig
 
 @Composable
-fun HomeScreen() {
-    val topBarConfig = LocalTopBarConfig.current
-
-    LaunchedEffect(Unit) {
-        topBarConfig.value = TopBarConfig(
-            title = { stringResource(R.string.label_home_screen_app_bar) },
-            showBack = false,
+fun HomeScreen(
+    setScaffoldConfig: (TabScaffoldConfig) -> Unit
+) {
+    setScaffoldConfig(
+        TabScaffoldConfig(
             actions = {
                 IconButton(onClick = { }) {
                     Icon(Icons.Default.Share, contentDescription = "Conexões")
                 }
-                IconButton(onClick = { }) {
-                    Icon(Icons.Default.Refresh, contentDescription = "Recarregar")
+                IconButton(onClick = {  }) {
+                    Icon(Icons.Default.Refresh, contentDescription = "refresh")
                 }
             }
         )
-    }
+    )
 
     Column(
         modifier = Modifier

@@ -25,7 +25,7 @@ class UsersViewModel(private val userUseCase: UserUseCase) : ViewModel() {
 
             when (response.resultStatus) {
                 ResultStatus.SUCCESS -> {
-                    val userUi = UserUiMapper.fromDomainList(response.results ?: emptyList())
+                    val userUi = UserUiMapper.fromDomainList( response.results.orEmpty())
                     _usersList.value = UiState.Success(userUi)
                 }
 

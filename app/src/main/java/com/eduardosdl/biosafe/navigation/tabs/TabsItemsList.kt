@@ -14,6 +14,7 @@ sealed class TabsItemsList(
     val route: String,
     @StringRes val labelRes: Int,
     @Contextual val icon: ImageVector,
+    val showBackButton: Boolean = false
 ) {
     @Serializable
     data object Home : TabsItemsList(
@@ -26,7 +27,8 @@ sealed class TabsItemsList(
     data object Users : TabsItemsList(
         route = "users",
         labelRes = R.string.label_users_screen_app_bar,
-        icon = Icons.Default.Person
+        icon = Icons.Default.Person,
+        showBackButton = true
     )
 
     companion object {

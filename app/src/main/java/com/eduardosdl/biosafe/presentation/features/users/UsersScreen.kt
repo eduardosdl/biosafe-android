@@ -1,7 +1,9 @@
 package com.eduardosdl.biosafe.presentation.features.users
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,44 +13,54 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.eduardosdl.biosafe.R
 import com.eduardosdl.biosafe.domain.model.User
 import com.eduardosdl.biosafe.presentation.components.shimmerloading.shimmerLoading
-import com.eduardosdl.biosafe.presentation.components.topbar.LocalTopBarConfig
-import com.eduardosdl.biosafe.presentation.components.topbar.TopBarConfig
+import com.eduardosdl.biosafe.presentation.features.tabcontainer.TabScaffoldConfig
 import com.eduardosdl.biosafe.presentation.features.util.UiState
+import com.eduardosdl.biosafe.presentation.theme.BiosafeTheme
 import org.koin.androidx.compose.koinViewModel
 import kotlin.time.ExperimentalTime
 
 @Composable
-fun UserRoute() {
+fun UserRoute(
+    setScaffoldConfig: (TabScaffoldConfig) -> Unit
+) {
     val viewModel = koinViewModel<UsersViewModel>()
     val usersState by viewModel.usersList.collectAsState()
 
-    val topBarConfig = LocalTopBarConfig.current
-
-    LaunchedEffect(Unit) {
-        topBarConfig.value = TopBarConfig(
-            title = { stringResource(R.string.label_users_screen_app_bar) },
+    setScaffoldConfig(
+        TabScaffoldConfig(
             actions = {
                 IconButton(onClick = { viewModel.fetchUsers() }) {
-                    Icon(Icons.Default.Refresh, contentDescription = "Recarregar")
+                    Icon(Icons.Default.Refresh, contentDescription = "refresh")
                 }
             },
+            floatButton = {
+                createUserDialogIsVisible = true
+            }
         )
     }
 
@@ -73,9 +85,7 @@ fun UserScreen(users: List<User>?, isLoading: Boolean = false) {
                 UserItem(user)
             }
         }
-
     }
-
 }
 
 @OptIn(ExperimentalTime::class)
@@ -95,7 +105,7 @@ fun UserItem(user: User) {
                 "Id da digital: ${user.fingerprintId}",
             )
             Text(
-                text = if (hasLastAccess) user.lastAccess else "Nenhum acesso registrado",
+                text = if (hasLastAccess) user.lastAccess else stringResource(R.string.label_without_last_access),
                 color = if (hasLastAccess) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
             )
         }
