@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.eduardosdl.biosafe.presentation.features.home.HomeScreen
 import com.eduardosdl.biosafe.presentation.features.tabcontainer.TabScaffoldConfig
-import com.eduardosdl.biosafe.presentation.features.users.UserRoute
+import com.eduardosdl.biosafe.presentation.features.users.UsersScreenRoute
 
 fun NavGraphBuilder.tabsContainerNavGraph(
     navController: NavHostController, setScaffoldConfig: (TabScaffoldConfig) -> Unit
@@ -17,7 +17,7 @@ fun NavGraphBuilder.tabsContainerNavGraph(
     }
 
     composable(TabsItemsList.Users.route) {
-        UserRoute {
+        UsersScreenRoute {
             setScaffoldConfig(it)
         }
     }
