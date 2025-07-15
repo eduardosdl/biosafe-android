@@ -1,4 +1,4 @@
-package com.eduardosdl.biosafe.presentation.features.users
+package com.eduardosdl.biosafe.presentation.features.util
 
 import com.eduardosdl.biosafe.domain.model.User
 import java.time.ZonedDateTime

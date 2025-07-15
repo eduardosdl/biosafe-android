@@ -9,4 +9,8 @@
     <string name="label_without_last_access">Nenhum acesso registrado</string>
     <string name="label_empty_users">Sem usuários cadastrados</string>
     <string name="label_create_new_user_btn">Cadastrar novo usuário</string>
+    <string name="error_network">Houve um erro de conexão</string>
+    <string name="unknown_error">Houve um erro, tente novamente mais tarde</string>
+    <string name="create_user_field_empty">Nome de usuário obrigatório</string>
+    <string name="create_user_already_exists">Nome já cadastrado</string>
 </resources>
