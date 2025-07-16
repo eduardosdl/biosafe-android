@@ -20,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.eduardosdl.biosafe.navigation.tabs.TabsItemsList
 import com.eduardosdl.biosafe.navigation.tabs.TabsNavHost
 import com.eduardosdl.biosafe.presentation.components.bottombar.BottomBarUI
+import com.eduardosdl.biosafe.presentation.components.customtoast.CustomToastProvider
 import com.eduardosdl.biosafe.presentation.components.topbar.TopBarUI
 
 @Composable
@@ -30,51 +31,43 @@ fun TabContainer() {
 
     var scaffoldConfig by remember { mutableStateOf(TabScaffoldConfig()) }
 
-
-    Scaffold(
-        bottomBar = {
+    CustomToastProvider {
+        Scaffold(bottomBar = {
             BottomBarUI(
-                tabs = TabsItemsList.ALL,
-                currentRoute = currentRoute,
-                onItemClick = {
+                tabs = TabsItemsList.ALL, currentRoute = currentRoute, onItemClick = {
                     tabNavController.navigate(it.route) {
                         popUpTo(tabNavController.graph.startDestinationId) { saveState = true }
                         launchSingleTop = true
                         restoreState = true
                     }
-                }
-            )
-        },
-        topBar = {
+                })
+        }, topBar = {
             TabsItemsList.fromRoute(currentRoute)?.let {
                 TopBarUI(
                     navController = tabNavController,
                     currentTabItem = it,
-                    actions = scaffoldConfig.actions ?: { }
-                )
+                    actions = scaffoldConfig.actions ?: { })
             }
-        },
-        floatingActionButton = {
+        }, floatingActionButton = {
             if (scaffoldConfig.floatButton != null) {
                 FloatingActionButton(
                     onClick = {
                         scaffoldConfig.floatButton!!.invoke()
-                    }
-                ) {
+                    }) {
                     Icon(Icons.Default.Add, "plus icon.")
                 }
             }
+        }) { innerPadding ->
+
+            TabsNavHost(
+                modifier = Modifier.padding(
+                    start = innerPadding.calculateStartPadding(LayoutDirection.Rtl),
+                    end = innerPadding.calculateEndPadding(LayoutDirection.Rtl),
+                    top = innerPadding.calculateTopPadding(),
+                    bottom = innerPadding.calculateBottomPadding()
+                ),
+                navHostController = tabNavController,
+                setScaffoldConfig = { scaffoldConfig = it })
         }
-    ) { innerPadding ->
-        TabsNavHost(
-            modifier = Modifier.padding(
-                start = innerPadding.calculateStartPadding(LayoutDirection.Rtl),
-                end = innerPadding.calculateEndPadding(LayoutDirection.Rtl),
-                top = innerPadding.calculateTopPadding(),
-                bottom = innerPadding.calculateBottomPadding()
-            ),
-            navHostController = tabNavController,
-            setScaffoldConfig = { scaffoldConfig = it }
-        )
     }
 }
